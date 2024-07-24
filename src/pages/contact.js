@@ -36,6 +36,7 @@ const Contact = ({singlePage}) => {
           <h2 className="text-4xl text-white">{singlePage.title}</h2>
           <div className='mt-8'>
           <p className='text-white'>{descText}</p>
+          <h3>testing</h3>
           </div>
       </div>
       </div>
