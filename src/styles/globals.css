@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+}
+
+@layer utilities {
+  button{
+    @apply bg-custom-blue text-white px-4 py-2 hover:bg-black hover:text-custom-blue;
+  }
+  
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .post_content p{
+    @apply pb-5;
+  }
+
+  .post_content h3{
+    @apply pb-5 text-xl font-semibold;
+  }
+
+  .post_content h2{
+    @apply pb-5 text-2xl font-semibold;
+  }
+
+  .post_content figure{
+    @apply pb-5 w-[70%];
+  }
+
+  .post_content li{
+    @apply pb-2 list-disc list-inside;
+  }
+
+  .post_content a{
+    @apply text-custom-blue hover:text-blue-500;
+  }
+
+  /* form */
+
+  input, textarea{
+    @apply border-[1px] border-gray-400 px-2 py-1 w-[100%];
+  }
+
+  form{
+    @apply bg-custom-blue p-9 text-left;
+  }
+
+  form input:where([type='submit']){
+    @apply cursor-pointer bg-white border-0 px-5 hover:bg-black hover:text-custom-blue w-auto;
+  }
+
+  textarea{
+    @apply h-32 ;
+  }
+
+}
