@@ -1,4 +1,3 @@
-import Category from "@/pages/category/[category]";
 import {graphqlRequest} from "./graphqlRequest"
 
 // all posts
@@ -31,6 +30,12 @@ const getAllPosts = async (endCursor = null, taxonomy = null) => {
               }
             }
             categories {
+              nodes {
+                name
+                slug
+              }
+            }
+            tags {
               nodes {
                 name
                 slug
@@ -93,6 +98,12 @@ const getSinglePost = async (slug) => {
               name
               slug
             }
+          }
+          tags {
+              nodes {
+                name
+                slug
+              }
           }
           featuredImage {
             node {

@@ -1,4 +1,5 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import Link from 'next/link';
 import { getPostSlugs, getSinglePost } from '../../lib/posts';
 import Date from '@/components/Date';
 
@@ -10,7 +11,7 @@ export async function getStaticProps ({params}) {
 
   // to use blog featured image as a banner background
   
-  // if(singlePost.featuredImage.node.mediaDetails.sizes[0].sourceUrl) {
+  // if(singlePost.featuredImage) {
   //   FeaturedImageurl = singlePost.featuredImage.node.mediaDetails.sizes[0].sourceUrl;
   // }
 
@@ -73,6 +74,17 @@ const singlePostPage = ({singlePost, FeaturedImageurl}) => {
         <section className='p-[6rem]'>
 
             <div className='post_content' dangerouslySetInnerHTML={{__html : singlePost.content}}></div>
+
+            <div className='mt-4 '><span>Tag : </span>
+              {singlePost.tags.nodes.map((tag, index) => ( 
+                  <span className='text-custom-blue' key={tag.slug}>
+                  <Link href={`/tag/${tag.slug}`} key={tag.slug}>
+                    {tag.name}
+                  </Link>
+                  {index < singlePost.tags.nodes.length - 1 && ' | '}
+                  </span>
+              ))}
+            </div>
    
         </section>
         
