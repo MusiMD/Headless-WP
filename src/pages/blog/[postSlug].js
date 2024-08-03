@@ -75,16 +75,18 @@ const singlePostPage = ({singlePost, FeaturedImageurl}) => {
 
             <div className='post_content' dangerouslySetInnerHTML={{__html : singlePost.content}}></div>
 
-            <div className='mt-4 '><span>Tag : </span>
-              {singlePost.tags.nodes.map((tag, index) => ( 
-                  <span className='text-custom-blue' key={tag.slug}>
-                  <Link href={`/tag/${tag.slug}`} key={tag.slug}>
-                    {tag.name}
-                  </Link>
-                  {index < singlePost.tags.nodes.length - 1 && ' | '}
-                  </span>
-              ))}
-            </div>
+            {singlePost.tags.nodes.length > 0 && (
+              <div className='mt-4 '><span>Tag : </span>
+                {singlePost.tags.nodes.map((tag, index) => ( 
+                    <span className='text-custom-blue' key={tag.slug}>
+                    <Link href={`/tag/${tag.slug}`} key={tag.slug}>
+                      {tag.name}
+                    </Link>
+                    {index < singlePost.tags.nodes.length - 1 && ' | '}
+                    </span>
+                ))}
+              </div>
+            )}
    
         </section>
         
