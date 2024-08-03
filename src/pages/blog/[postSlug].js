@@ -18,7 +18,8 @@ export async function getStaticProps ({params}) {
     props : {
       singlePost,
       FeaturedImageurl : "url(" + FeaturedImageurl + ")",
-    }
+    },
+    revalidate: 10,
   }
 }
 

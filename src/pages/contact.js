@@ -9,7 +9,8 @@ export async function getStaticProps () {
   return {
     props : {
       singlePage,
-    }
+    },
+    revalidate: 10,
   }
 }
 

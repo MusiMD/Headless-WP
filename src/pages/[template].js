@@ -8,7 +8,8 @@ export async function getStaticProps ({params}) {
   return {
     props : {
       dynamicPage,
-    }
+    },
+    revalidate: 10,
   }
 }
 
@@ -25,7 +26,7 @@ export async function getStaticPaths () {
         }
       }
     )).filter((path) => !conflictingPaths.includes(`/${path.params.template}`)),
-    fallback : false
+    fallback : 'blocking'
   }
 }
 
