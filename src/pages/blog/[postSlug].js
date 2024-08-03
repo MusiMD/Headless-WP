@@ -19,7 +19,7 @@ export async function getStaticProps ({params}) {
       singlePost,
       FeaturedImageurl : "url(" + FeaturedImageurl + ")",
     },
-    revalidate: 0,
+    revalidate: 1,
   }
 }
 

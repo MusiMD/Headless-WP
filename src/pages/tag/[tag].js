@@ -17,7 +17,7 @@ export async function getStaticProps ({params}) {
       tagPosts,
       singleTag,
     },
-    revalidate: 0,
+    revalidate: 1,
   }
 }
 

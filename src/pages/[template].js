@@ -9,7 +9,7 @@ export async function getStaticProps ({params}) {
     props : {
       dynamicPage,
     },
-    revalidate: 0,
+    revalidate: 1,
   }
 }
 
