@@ -16,7 +16,8 @@ export async function getStaticProps ({params}) {
     props : {
       categoryPosts,
       singleCategory,
-    }
+    },
+    revalidate: 0,
   }
 }
 
@@ -32,7 +33,7 @@ export async function getStaticPaths () {
         }
       }
     )),
-    fallback : false
+    fallback : 'blocking'
   }
 }
 
