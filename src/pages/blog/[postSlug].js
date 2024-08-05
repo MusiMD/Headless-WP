@@ -1,11 +1,13 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { getPostSlugs, getSinglePost } from '../../lib/posts';
+import { getSeo } from '@/lib/seo';
 import Date from '@/components/Date';
 
 
 export async function getStaticProps ({params}) {
   const singlePost = await getSinglePost(params.postSlug);
+  const seoData = await getSeo('post', params.postSlug)
 
   let FeaturedImageurl = "https://dev-headlessdev.pantheonsite.io/wp-content/uploads/2024/07/closeup-electric-guitar-notepad-concept-musical-creativity.webp";
 
@@ -19,6 +21,7 @@ export async function getStaticProps ({params}) {
     props : {
       singlePost,
       FeaturedImageurl : "url(" + FeaturedImageurl + ")",
+      seoData,
     },
     revalidate: 1,
   }
@@ -41,16 +44,24 @@ export async function getStaticPaths () {
 }
 
 
-const singlePostPage = ({singlePost, FeaturedImageurl}) => {
+const singlePostPage = ({singlePost, FeaturedImageurl, seoData}) => {
+
+  let jsonSchema = seoData.schema.raw.replace(/https:\/\/dev-headlessdev.pantheonsite.io(?!\/wp-content\/uploads)/g, 'https://headless-wp-fawn.vercel.app/blog');
+
+
   
   return (
 <>
     <Head>
-      <title key={singlePost.title}>{singlePost.title}</title>
-      <meta key="singleblog-metadescription" name="description" content={singlePost.excerpt}/>
+      <title key={seoData.title}>{seoData.title}</title>
+      <meta key="singleblog-metadescription" name="description" content={seoData.metaDesc}/>
+
+      <script type='application/ld+json' dangerouslySetInnerHTML={{__html:jsonSchema}}></script>
     </Head>
 
     <main>
+
+    <article>
 
     {/* banner sec */}
 
@@ -91,6 +102,8 @@ const singlePostPage = ({singlePost, FeaturedImageurl}) => {
         </section>
         
     </div>
+
+    </article>
 
     </main>
 </>
