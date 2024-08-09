@@ -1,45 +1,43 @@
-import Head from 'next/head'
-import { getPageSlugs, getDynamicPage } from '../lib/pages';
+import { getPageSlugs, getDynamicPage } from '@/lib/pages';
+import { getSeo } from '@/lib/seo';
 
-
-export async function getStaticProps ({params}) {
-  const dynamicPage = await getDynamicPage(params.template);
-
-  return {
-    props : {
-      dynamicPage,
-    },
-    revalidate: 1,
-  }
-}
 
 const conflictingPaths = ['/contact', '/about'];
 
-export async function getStaticPaths () {
+export async function generateStaticParams () {
   const pageSlugs = await getPageSlugs();
 
-  return {
-    paths : pageSlugs.map((t) => (
-      {
-        params : {
-          template : t.slug
-        }
-      }
-    )).filter((path) => !conflictingPaths.includes(`/${path.params.template}`)),
-    fallback : 'blocking'
+  const paths = pageSlugs.map((t) => (
+    {template : t.slug}
+  )).filter((path) => !conflictingPaths.includes(`/${path.template}`));
+
+  return paths;
+}
+
+
+export async function generateMetadata ({params}) {
+  const pageSeoData = await getSeo('page', params.template)
+
+  return{
+    title: pageSeoData?.title,
+    description:pageSeoData?.metaDesc,
+    openGraph: {
+      title: pageSeoData?.opengraphTitle,
+      description:pageSeoData?.opengraphDescription,
+      siteName: pageSeoData?.opengraphSiteName,
+    }
   }
 }
 
 
-const Template = ({dynamicPage}) => {
+const Template = async({params}) => {
+
+  const dynamicPage = await getDynamicPage(params.template);
+
   const descText = "This is " + dynamicPage.title.toLowerCase() + " page"
   return (
     
 <>
-    <Head>
-      <title key={dynamicPage.title}>{dynamicPage.title}</title>
-      <meta key="dynamicpage-metadescription" name="description" content={descText}/>
-    </Head>
 
     <main>
 

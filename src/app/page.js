@@ -1,13 +1,13 @@
-import Head from 'next/head'
 import Link from 'next/link'
+
+export const metadata = {
+  title:"Home",
+  description:"Home page - headless"
+}
 
 const Home = () => {
   return (
 <>
-    <Head>
-      <title key="title">next js app</title>
-      <meta key="metadescription" name="description" content="nextjs app - headless"/>
-    </Head>
 
     <main>
 

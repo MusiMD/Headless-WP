@@ -1,29 +1,30 @@
-import Head from 'next/head'
-import { getDynamicPage } from '../lib/pages';
+import { getDynamicPage } from '@/lib/pages';
+import { getSeo } from '@/lib/seo';
 
 
-export async function getStaticProps () {
-  const slug = 'about';
-  const singlePage = await getDynamicPage(slug);
+export async function generateMetadata ({params}) {
+  const seoData = await getSeo('page', 'about')
 
-  return {
-    props : {
-      singlePage,
-    },
-    revalidate: 1,
+  return{
+    title: seoData?.title,
+    description:seoData?.metaDesc,
+    openGraph: {
+      title: seoData?.opengraphTitle,
+      description:seoData?.opengraphDescription,
+      siteName: seoData?.opengraphSiteName,
+    }
   }
 }
 
 
-const About = ({singlePage}) => {
+const About = async({params}) => {
+
+  const singlePage = await getDynamicPage('about');
+
   const descText = "This is " + singlePage.title.toLowerCase() + " page"
   return (
     
 <>
-    <Head>
-      <title key={singlePage.title}>{singlePage.title}</title>
-      <meta key="about-metadescription" name="description" content={descText}/>
-    </Head>
 
     <main>
 

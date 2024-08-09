@@ -1,11 +1,37 @@
-import Head from 'next/head';
 import Link from 'next/link';
-import { getPostSlugs, getSinglePost } from '../../lib/posts';
+import { getPostSlugs, getSinglePost } from '@/lib/posts';
 import { getSeo } from '@/lib/seo';
 import Date from '@/components/Date';
 
 
-export async function getStaticProps ({params}) {
+export async function generateStaticParams () {
+  const postSlugs = await getPostSlugs();
+
+  const paths = postSlugs.map((p) => (
+    {postSlug : p.slug}
+  ));
+
+  return paths;
+}
+
+
+export async function generateMetadata ({params}) {
+  const seoData = await getSeo('post', params.postSlug)
+
+  return{
+    title: seoData?.title,
+    description:seoData?.metaDesc,
+    openGraph: {
+      title: seoData?.opengraphTitle,
+      description:seoData?.opengraphDescription,
+      siteName: seoData?.opengraphSiteName,
+    }
+  }
+}
+
+
+const singlePostPage = async({params}) => {
+
   const singlePost = await getSinglePost(params.postSlug);
   const seoData = await getSeo('post', params.postSlug)
 
@@ -17,34 +43,7 @@ export async function getStaticProps ({params}) {
   //   FeaturedImageurl = singlePost.featuredImage.node.mediaDetails.sizes[0].sourceUrl;
   // }
 
-  return {
-    props : {
-      singlePost,
-      FeaturedImageurl : "url(" + FeaturedImageurl + ")",
-      seoData,
-    },
-    revalidate: 1,
-  }
-}
-
-
-export async function getStaticPaths () {
-  const postSlugs = await getPostSlugs();
-
-  return {
-    paths : postSlugs.map((p) => (
-      {
-        params : {
-          postSlug : p.slug
-        }
-      }
-    )),
-    fallback : 'blocking'
-  }
-}
-
-
-const singlePostPage = ({singlePost, FeaturedImageurl, seoData}) => {
+  FeaturedImageurl = "url(" + FeaturedImageurl + ")";
 
   let jsonSchema = seoData.schema.raw.replace(/https:\/\/dev-headlessdev.pantheonsite.io(?!\/wp-content\/uploads)/g, 'https://headless-wp-fawn.vercel.app/blog');
 
@@ -52,12 +51,7 @@ const singlePostPage = ({singlePost, FeaturedImageurl, seoData}) => {
   
   return (
 <>
-    <Head>
-      <title key={seoData.title}>{seoData.title}</title>
-      <meta key="singleblog-metadescription" name="description" content={seoData.metaDesc}/>
-
-      <script type='application/ld+json' dangerouslySetInnerHTML={{__html:jsonSchema}}></script>
-    </Head>
+    <script type='application/ld+json' dangerouslySetInnerHTML={{__html:jsonSchema}}></script>
 
     <main>
 
