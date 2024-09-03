@@ -8,11 +8,12 @@ const FeaturedImage = ({post}) => {
     const defaultWidth = "300";
     const defaultHeight = "300";
 
-    if(post.featuredImage) {
-      let size = post.featuredImage.node.mediaDetails.sizes[0];
+    if(post.featuredImage && post.featuredImage.node) {
+      let size = post.featuredImage.node.mediaDetails;
+      let file = post.featuredImage.node
 
         img = {
-            src : size.sourceUrl,
+            src : file.sourceUrl,
             width : size.width,
             height : size.height
         }
@@ -28,7 +29,7 @@ const FeaturedImage = ({post}) => {
 
   return (
     <Link href={`/blog/${post.slug}`}>
-        <Image src={img.src} alt="blog featured image" width={img.width} height={img.height} className=" object-cover rounded-lg"/>
+        <Image src={img.src} alt="blog featured image" width="300" height="300" className=" object-cover rounded-lg"/>
     </Link>
   )
 }

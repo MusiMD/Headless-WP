@@ -107,12 +107,10 @@ const getSinglePost = async (slug) => {
           }
           featuredImage {
             node {
+              sourceUrl
               mediaDetails {
-                sizes {
-                  sourceUrl
-                  width
-                  height
-                }
+                width
+                height                           
               }
             }
           }

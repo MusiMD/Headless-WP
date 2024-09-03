@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getPostSlugs, getSinglePost } from '@/lib/posts';
 import { getSeo } from '@/lib/seo';
 import Date from '@/components/Date';
+import FeaturedImage from '@/components/FeaturedImage';
 
 
 export async function generateStaticParams () {
@@ -39,13 +40,13 @@ const singlePostPage = async({params}) => {
 
   // to use blog featured image as a banner background
   
-  // if(singlePost.featuredImage) {
-  //   FeaturedImageurl = singlePost.featuredImage.node.mediaDetails.sizes[0].sourceUrl;
-  // }
+  if(singlePost.featuredImage) {
+    FeaturedImageurl = singlePost.featuredImage.node.sourceUrl;
+  }
 
   FeaturedImageurl = "url(" + FeaturedImageurl + ")";
 
-  let jsonSchema = seoData.schema.raw.replace(/https:\/\/dev-headlessdev.pantheonsite.io(?!\/wp-content\/uploads)/g, 'https://headless-wp-fawn.vercel.app/blog');
+  let jsonSchema = seoData?.schema.raw.replace(/https:\/\/dev-headlessdev.pantheonsite.io(?!\/wp-content\/uploads)/g, 'https://headless-wp-fawn.vercel.app/blog');
 
 
   
