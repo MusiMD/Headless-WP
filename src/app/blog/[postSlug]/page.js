@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { getPostSlugs, getSinglePost } from '@/lib/posts';
 import { getSeo } from '@/lib/seo';
 import Date from '@/components/Date';
-import FeaturedImage from '@/components/FeaturedImage';
 
 
 export async function generateStaticParams () {

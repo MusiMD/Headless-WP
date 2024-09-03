@@ -8,9 +8,9 @@ const FeaturedImage = ({post}) => {
     const defaultWidth = "300";
     const defaultHeight = "300";
 
-    if(post.featuredImage && post.featuredImage.node) {
+    if(post.featuredImage) {
       let size = post.featuredImage.node.mediaDetails;
-      let file = post.featuredImage.node
+      let file = post.featuredImage.node; 
 
         img = {
             src : file.sourceUrl,

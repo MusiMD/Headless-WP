@@ -20,12 +20,10 @@ const getAllPosts = async (endCursor = null, taxonomy = null) => {
             title
             featuredImage {
               node {
+                sourceUrl
                 mediaDetails {
-                  sizes {
-                    sourceUrl
-                    width
-                    height
-                  }
+                  width
+                  height                           
                 }
               }
             }
