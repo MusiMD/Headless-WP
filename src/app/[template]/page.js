@@ -1,5 +1,6 @@
 import { getPageSlugs, getDynamicPage } from '@/lib/pages';
 import { getSeo } from '@/lib/seo';
+import { notFound } from 'next/navigation';
 
 
 const conflictingPaths = ['/contact', '/about'];
@@ -8,7 +9,7 @@ export async function generateStaticParams () {
   const pageSlugs = await getPageSlugs();
 
   const paths = pageSlugs.map((t) => (
-    {template : t.slug}
+    {template : t.slug }
   )).filter((path) => !conflictingPaths.includes(`/${path.template}`));
 
   return paths;
@@ -16,7 +17,12 @@ export async function generateStaticParams () {
 
 
 export async function generateMetadata ({params}) {
-  const pageSeoData = await getSeo('page', params.template)
+  const pageSeoData = await getSeo('page', params.template);
+  const dynamicPage = await getDynamicPage(params.template);
+
+  if (!dynamicPage) {
+    notFound(); 
+  }
 
   return{
     title: pageSeoData?.title,
@@ -33,6 +39,10 @@ export async function generateMetadata ({params}) {
 const Template = async({params}) => {
 
   const dynamicPage = await getDynamicPage(params.template);
+
+  if (!dynamicPage) {
+    notFound(); 
+  }
 
   const descText = "This is " + dynamicPage.title.toLowerCase() + " page"
   return (

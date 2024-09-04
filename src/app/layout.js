@@ -10,6 +10,12 @@ const poppins = Poppins({
   display: 'swap',
 })
 
+export const metadata = {
+  icons: {
+    icon: '/favicon.ico',
+  },
+};
+
 const RootLayout = ({children}) => {
   return (
     <html lang="en">

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getPostSlugs, getSinglePost } from '@/lib/posts';
 import { getSeo } from '@/lib/seo';
 import Date from '@/components/Date';
+import { notFound } from 'next/navigation';
 
 
 export async function generateStaticParams () {
@@ -16,7 +17,12 @@ export async function generateStaticParams () {
 
 
 export async function generateMetadata ({params}) {
-  const seoData = await getSeo('post', params.postSlug)
+  const seoData = await getSeo('post', params.postSlug);
+  const singlePost = await getSinglePost(params.postSlug);
+
+  if (!singlePost) {
+    notFound(); 
+  }
 
   return{
     title: seoData?.title,
@@ -33,6 +39,11 @@ export async function generateMetadata ({params}) {
 const singlePostPage = async({params}) => {
 
   const singlePost = await getSinglePost(params.postSlug);
+
+  if (!singlePost) {
+    notFound(); 
+  }
+
   const seoData = await getSeo('post', params.postSlug)
 
   let FeaturedImageurl = "https://dev-headlessdev.pantheonsite.io/wp-content/uploads/2024/07/closeup-electric-guitar-notepad-concept-musical-creativity.webp";

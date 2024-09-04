@@ -14,7 +14,7 @@ const getPageSlugs = async () => {
   };
 
   const resJson = await graphqlRequest(query);
-  const pageSlugs = resJson.data.pages.nodes;
+  const pageSlugs = resJson.data?.pages?.nodes;
   return pageSlugs;
 }
 
