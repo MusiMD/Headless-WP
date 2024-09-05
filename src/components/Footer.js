@@ -1,13 +1,13 @@
-import Image from 'next/image'
 import Link from 'next/link'
+import Image from 'next/image';
 
-const Footer = () => {
+const Footer = ({ logo }) => {
   return (
     <footer>
       <div className='bg-black py-8'>
         <div className='container max-w-6xl mx-auto flex flex-col items-center'>
           <Link href="/">
-            <Image src="/logo.webp" alt="logo image" width="100" height="100" />
+            <Image src={logo.src} alt="site logo" width={logo.width} height={logo.height} />
           </Link>
           
           <nav className='my-8'>

@@ -1,9 +1,9 @@
 'use client';
-import Image from 'next/image'
-import Link from 'next/link'
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
-const Header = () => {
+const Header = ({ logo }) => {
   const pathname = usePathname();
 
   const isActive = (href) => {
@@ -15,9 +15,8 @@ const Header = () => {
       <div className='bg-black py-3'>
         <div className='container max-w-6xl mx-auto flex justify-between items-center'>
           <Link href="/">
-            <Image src="/logo.webp" alt="logo image" width="100" height="100" />
+            <Image src={logo.src} alt="site logo" width={logo.width} height={logo.height} />
           </Link>
-        
           <nav>
             <ul className='flex justify-between [&>li>a]:pl-4 [&>li>a:hover]:text-custom-blue'>
               <li className={`${isActive('/')}`}>
@@ -37,7 +36,7 @@ const Header = () => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
 export default Header;

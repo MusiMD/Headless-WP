@@ -1,5 +1,31 @@
 import { graphqlRequest } from "./graphqlRequest";
 
+// logo image
+
+const getLogo = async () => {
+  const query = {
+    query : `query getLogo {
+        mediaItems(where: {name: "logo"}) {
+          nodes {
+            sourceUrl
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+    }`
+  };
+
+  const resJson = await graphqlRequest(query);
+  const logoImage = resJson.data.mediaItems.nodes;
+  return logoImage;
+}
+
+export { getLogo }
+
+
+
 // all page slugs
 
 const getPageSlugs = async () => {
@@ -14,7 +40,7 @@ const getPageSlugs = async () => {
   };
 
   const resJson = await graphqlRequest(query);
-  const pageSlugs = resJson.data?.pages?.nodes;
+  const pageSlugs = resJson.data.pages?.nodes;
   return pageSlugs;
 }
 
