@@ -1,37 +1,68 @@
 'use client';
-
-import { useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { handleFormSubmission } from '@/lib/formHandler'; // Import reusable form handler
 
 const ContactFormHandler = ({ formId }) => {
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const formRef = useRef(null); // Ref to access the form element directly
+
   // Success callback after form submission
   const onSuccess = (data) => {
-    alert('Message sent successfully!');
+    setSuccessMessage('Message sent successfully!');
+    setErrorMessage(''); // Clear any existing error messages
+
+    // Clear form fields
+    if (formRef.current) {
+      formRef.current.reset();
+    }
+
+    // Optionally hide the success message after a few seconds
+    setTimeout(() => {
+      setSuccessMessage('');
+    }, 3000); // Hide after 5 seconds
   };
 
   // Error callback if form submission fails
   const onError = (error) => {
-    alert('Failed to send message. Please try again.');
+    setErrorMessage('Failed to send message. Please check the fields and try again.');
+    setSuccessMessage(''); // Clear any existing success messages
   };
 
-  // useEffect hook to handle form submission with event listeners
   useEffect(() => {
     const form = document.querySelector('form.wpcf7-form'); // Select the form dynamically rendered by WordPress
+    formRef.current = form; // Set the form ref
+
+    const handleSubmission = (e) => handleFormSubmission(e, formId, onSuccess, onError); // Define the handler
+
     if (form) {
-      form.addEventListener('submit', (e) =>
-        handleFormSubmission(e, formId, onSuccess, onError) // Attach the handler
-      );
+      form.addEventListener('submit', handleSubmission); // Attach the handler
     }
 
     // Cleanup event listener on unmount
     return () => {
       if (form) {
-        form.removeEventListener('submit', handleFormSubmission);
+        form.removeEventListener('submit', handleSubmission); // Remove the same handler
       }
     };
   }, [formId]);
 
-  return null; // This component does not render anything visually, it only handles the form submission
+  return (
+    <>
+      <div className="container max-w-6xl mx-auto flex justify-center items-center">
+        {successMessage && (
+          <div className="text-green-600 border border-green-600 px-3 py-2 mt-[-70px] mb-[60px] w-[460px]">
+            {successMessage}
+          </div>
+        )}
+        {errorMessage && (
+          <div className="text-red-600 border border-red-600 px-3 py-2 mt-[-70px] mb-[60px] w-[460px]">
+            {errorMessage}
+          </div>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default ContactFormHandler;

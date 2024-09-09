@@ -47,8 +47,7 @@ const Contact = async () => {
             ></div>
           </section>
 
-          {/* Attach form handler to the Contact Form */}
-          <ContactFormHandler formId="23de8f6" />
+          <ContactFormHandler formId="111" />
         </div>
       </main>
     </>
