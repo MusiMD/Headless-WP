@@ -17,9 +17,10 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: rgb(var(--foreground-rgb), 1); /* Add an alpha value for fallback */
   font-family: 'Poppins', sans-serif;
 }
+
 
 @layer utilities {
 
