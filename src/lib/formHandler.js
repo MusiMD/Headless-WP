@@ -1,12 +1,10 @@
-// lib/formHandler.js
-
 export const handleFormSubmission = (e, formId, successCallback, errorCallback) => {
-  e.preventDefault(); // Prevent default form submission behavior
+  e.preventDefault(); 
 
   const form = e.target;
   const formData = new FormData(form);
 
-  // Use the form ID to dynamically send the request to the correct endpoint
+ 
   fetch(
     `https://dev-headlessdev.pantheonsite.io/wp-json/contact-form-7/v1/contact-forms/${formId}/feedback`,
     {
