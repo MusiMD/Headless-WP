@@ -1,5 +1,6 @@
 import { getDynamicPage } from '@/lib/pages';
 import { getSeo } from '@/lib/seo';
+import RenderBlocks from '@/components/RenderBlocks';
 
 
 export async function generateMetadata ({params}) {
@@ -47,9 +48,9 @@ const About = async({params}) => {
 
     <div className='container max-w-6xl mx-auto'>
 
-        <section className='py-[6rem]'>
+        <section className='py-[6rem] post_content'>
 
-            <div className='post_content' dangerouslySetInnerHTML={{__html : singlePage.content}}></div>
+            <RenderBlocks blocks={singlePage.blocks}/>
 
         </section>
         

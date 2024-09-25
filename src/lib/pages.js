@@ -60,6 +60,7 @@ const getDynamicPage = async (slug) => {
               slug
               title
               pageId
+              blocks(attributes: true)
           }
         }
       }`

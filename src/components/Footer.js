@@ -10,8 +10,8 @@ const Footer = ({ logo }) => {
             <Image src={logo.src} alt="site logo" width={logo.width} height={logo.height} />
           </Link>
           
-          <nav className='my-8'>
-            <ul className='flex justify-between [&>li>a]:pl-4 [&>li>a]:text-white [&>li>a:hover]:text-custom-blue'>
+          <nav className='my-6'>
+            <ul className='flex flex-wrap justify-center [&>li]:p-2 [&>li>a]:text-white [&>li>a:hover]:text-custom-blue'>
               <li>
                 <Link href="/">Home</Link>
               </li>
@@ -29,7 +29,7 @@ const Footer = ({ logo }) => {
               </li>
             </ul>
           </nav>
-          <p className='text-white'>  Copyright &copy; 2024 Headless Wordpress. All Rights Reserved.</p>
+          <p className='text-white text-center'>  Copyright &copy; 2024 Headless Wordpress. All Rights Reserved.</p>
         </div>
       </div>
 

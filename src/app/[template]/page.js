@@ -1,6 +1,7 @@
 import { getPageSlugs, getDynamicPage } from '@/lib/pages';
 import { getSeo } from '@/lib/seo';
 import { notFound } from 'next/navigation';
+import RenderBlocks from '@/components/RenderBlocks';
 
 
 const conflictingPaths = ['/contact', '/about'];
@@ -70,11 +71,11 @@ const Template = async({params}) => {
 
     <div className='container max-w-6xl mx-auto'>
 
-        <section className='py-[6rem]'>
+          <section className='py-[6rem] post_content'>
 
-            <div className='post_content' dangerouslySetInnerHTML={{__html : dynamicPage.content}}></div>
+              <RenderBlocks blocks={dynamicPage.blocks}/>
 
-        </section>
+          </section>
         
     </div>
 
