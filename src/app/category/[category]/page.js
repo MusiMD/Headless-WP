@@ -1,5 +1,6 @@
 import { getAllCategory, getAllPosts, getSingleCategory } from '@/lib/posts';
 import PostLists from '@/components/PostLists';
+import { notFound } from 'next/navigation';
 
 
 export async function generateStaticParams () {
@@ -15,6 +16,10 @@ export async function generateStaticParams () {
 
 export async function generateMetadata({ params }) {
   const singleCategory = await getSingleCategory(params.category);
+  
+  if (!singleCategory) {
+    notFound(); 
+  }
 
   return {
     title: singleCategory.name,
@@ -27,6 +32,10 @@ const Category = async({params}) => {
 
   const categoryPosts = await getAllPosts(null, {key:"categoryName", value: params.category});
   const singleCategory = await getSingleCategory(params.category);
+
+  if (!singleCategory) {
+    notFound(); 
+  }
   
   return (
 <>

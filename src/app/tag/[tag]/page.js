@@ -1,5 +1,6 @@
 import { getAllPosts, getAllTags, getSingleTag } from '@/lib/posts';
 import PostLists from '@/components/PostLists';
+import { notFound } from 'next/navigation';
 
 
 export async function generateStaticParams () {
@@ -16,6 +17,10 @@ export async function generateStaticParams () {
 export async function generateMetadata({ params }) {
   const singleTag = await getSingleTag(params.tag);
 
+  if (!singleTag) {
+    notFound(); 
+  }
+
   return {
     title: singleTag.name,
     description: "Tag archive page",
@@ -27,6 +32,10 @@ const Tag = async({params}) => {
 
   const tagPosts = await getAllPosts(null, {key:"tag", value: params.tag});
   const singleTag = await getSingleTag(params.tag);
+
+  if (!singleTag) {
+    notFound(); 
+  }
   
   return (
 <>
