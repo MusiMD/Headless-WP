@@ -14,9 +14,9 @@ const PostList = ({initialPosts, taxonomy}) => {
           <ul className='mb-7'>
               {
               posts.nodes.map((post) => (
-                <li key={post.slug} className='grid grid-cols-5 gap-4 mb-8'>
+                <li key={post.slug} className='md:grid grid-cols-5 gap-4 mb-8'>
 
-                  <div className='col-span-2 justify-self-center'>
+                  <div className='max-md:mb-7 col-span-2 justify-self-center'>
                     <FeaturedImage post={post}/>
                   </div>
 

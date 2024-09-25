@@ -7,11 +7,14 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-
 @layer utilities {
 
   .container{
     @apply px-5;
+  }
+
+  .top_head{
+    @apply text-center;
   }
 
   button{

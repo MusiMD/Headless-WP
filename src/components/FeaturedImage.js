@@ -29,7 +29,7 @@ const FeaturedImage = ({post}) => {
 
   return (
     <Link href={`/blog/${post.slug}`}>
-        <Image src={img.src} alt="blog featured image" width="300" height="300" className=" object-cover rounded-lg"/>
+        <Image src={img.src} alt="blog featured image" width="300" height="300" className=" object-cover rounded-lg max-md:w-full"/>
     </Link>
   )
 }

@@ -22,7 +22,7 @@ const Blog = async({params}) => {
       <div className="bg-black absolute inset-0 opacity-50  z-0"></div> 
 
       <div className='container max-w-6xl mx-auto flex justify-center items-center'>
-      <div className='relative flex flex-col justify-center items-center'>
+      <div className='relative flex flex-col justify-center items-center top_head'>
           <h2 className="text-4xl text-white">Blogs</h2>
           <div className='mt-8'>
           <p className='text-white'>Read our latest blogs</p>

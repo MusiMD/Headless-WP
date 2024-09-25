@@ -74,7 +74,7 @@ const singlePostPage = async({params}) => {
       <div className="bg-black absolute inset-0 opacity-50  z-0"></div> 
 
       <div className='container max-w-6xl mx-auto flex justify-center items-center'>
-      <div className='relative flex flex-col justify-center items-center'>
+      <div className='relative flex flex-col justify-center items-center top_head'>
           <h2 className="text-4xl text-white">{singlePost.title}</h2>
           <div className='mt-8'>
           <p className='text-white'><Date dateString={singlePost.date} /></p>
@@ -87,7 +87,7 @@ const singlePostPage = async({params}) => {
 
     <div className='container max-w-6xl mx-auto'>
 
-        <section className='p-[6rem]'>
+        <section className='md:px-[6rem] py-[6rem]'>
 
             <div className='post_content' dangerouslySetInnerHTML={{__html : singlePost.content}}></div>
 
